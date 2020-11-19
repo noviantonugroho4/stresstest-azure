@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.3">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Test Plan" enabled="true">
+      <stringProp name="TestPlan.comments"></stringProp>
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <boolProp name="TestPlan.tearDown_on_shutdown">true</boolProp>
+      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+        <collectionProp name="Arguments.arguments"/>
+      </elementProp>
+      <stringProp name="TestPlan.user_define_classpath"></stringProp>
+    </TestPlan>
+    <hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="WMS" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">1</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">1</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+      </ThreadGroup>
+      <hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="HTTP Request" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">agsistg.gsilab.id</stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path"></stringProp>
+          <stringProp name="HTTPSampler.method">GET</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="login" enabled="false">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+&quot;query&quot;:&#xd;
+&quot;query {\n    login(username: \&quot;NNugroho\&quot;, password: \&quot;wms@2020\&quot;) {\n      token\n    }\n  }&quot;&#xd;
+}&#xd;
+</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">wms-backend-dev.tkgslogpolri.com</stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path"></stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="get-items" enabled="false">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+&quot;query&quot;:&quot;query items($orderBy: String, $skip: Int, $limit: Int, $filters: [itemsFilterArgsType]) {\n    items(orderBy: $orderBy, skip: $skip, limit: $limit, filters: $filters) {\n      data {\n        brand\n        categoryName\n        createdAt\n        createdBy\n        id\n        imageFilename\n        isDeleted\n        itemCategoryId\n        itemCode\n        simakCode\n        itemName\n        modifiedAt\n        modifiedBy\n        note\n        price\n        rackPosition\n        spec\n        uomName\n        lengthM\n        widthM\n        heightM\n        volumeM\n        weightKg\n        snRequired\n        sizeType\n        noRangka\n        noMesin\n        isExpired\n      }\n      total\n    }}&quot;&#xd;
+}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">wms-backend-qa.tkgslogpolri.com</stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">wms-backend</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+            <collectionProp name="HeaderManager.headers">
+              <elementProp name="" elementType="Header">
+                <stringProp name="Header.name">x-token</stringProp>
+                <stringProp name="Header.value">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Ik5vdmlhbnRvLk51Z3JvaG9AeGFwaWVucy5pZCIsInVzZXJfdHlwZSI6IlNBVEtFUiIsImZ1bGxuYW1lIjoiTm92aWFudG8gTnVncm9obyIsInVzZXJuYW1lIjoiTk51Z3JvaG8iLCJwaG90byI6IiIsImdyYWRlIjoiUG9zaXNpIiwicG9zaXRpb25zIjoiSmFiYXRhbiIsInBlcm1pc2lvbiI6eyJtYXN0ZXJfZGF0YV9ncm91cF9hY2Nlc3MiOnsiY3JlYXRlIjpmYWxzZSwiZGVsZXRlIjpmYWxzZSwicmVhZCI6dHJ1ZSwidXBkYXRlIjpmYWxzZX0sIm1hc3Rlcl9kYXRhX2thdGVnb3JpX2JhcmFuZyI6eyJjcmVhdGUiOmZhbHNlLCJkZWxldGUiOnRydWUsInJlYWQiOmZhbHNlLCJ1cGRhdGUiOmZhbHNlfSwibWFzdGVyX2RhdGFfcGVueWVkaWEiOnsiY3JlYXRlIjpmYWxzZSwiZGVsZXRlIjpmYWxzZSwicmVhZCI6ZmFsc2UsInVwZGF0ZSI6dHJ1ZX0sIm1hc3Rlcl9kYXRhX3VzZXIiOnsiY3JlYXRlIjp0cnVlLCJkZWxldGUiOmZhbHNlLCJyZWFkIjpmYWxzZSwidXBkYXRlIjpmYWxzZX19LCJ2ZW5kb3JfaWQiOjAsImV4cCI6MTYwNTA2NjMwOCwiaXNzIjoiTk51Z3JvaG8ifQ.XEkRAXVEel7jPYkhe4MdTyjhk_ZV9AVeHGrdB1rCj3I</stringProp>
+              </elementProp>
+            </collectionProp>
+          </HeaderManager>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="get-vendors" enabled="false">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+&quot;query&quot;:&quot;query vendors(\n    $skip: Int\n    $limit: Int\n    $orderBy: String\n    $filters: [vendorsFilterArgsType]\n  ) {\n    vendors(\n      skip: $skip\n      limit: $limit\n      orderBy: $orderBy\n      filters: $filters\n    ) {\n      data {\n        id\n        vendorName\n        email\n        addr\n        addr2\n        addr3\n        ponsel\n        phone\n        photo\n        city\n        country\n        fax\n        postalCode\n        note\n        isExpedition\n        isVendor\n      }\n      total\n    }\n  }\n&quot;&#xd;
+}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">wms-backend-qa.tkgslogpolri.com</stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">wms-backend</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+            <collectionProp name="HeaderManager.headers">
+              <elementProp name="" elementType="Header">
+                <stringProp name="Header.name">x-token</stringProp>
+                <stringProp name="Header.value">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Ik5vdmlhbnRvLk51Z3JvaG9AeGFwaWVucy5pZCIsInVzZXJfdHlwZSI6IlNBVEtFUiIsImZ1bGxuYW1lIjoiTm92aWFudG8gTnVncm9obyIsInVzZXJuYW1lIjoiTk51Z3JvaG8iLCJwaG90byI6IiIsImdyYWRlIjoiUG9zaXNpIiwicG9zaXRpb25zIjoiSmFiYXRhbiIsInBlcm1pc2lvbiI6eyJtYXN0ZXJfZGF0YV9ncm91cF9hY2Nlc3MiOnsiY3JlYXRlIjpmYWxzZSwiZGVsZXRlIjpmYWxzZSwicmVhZCI6dHJ1ZSwidXBkYXRlIjpmYWxzZX0sIm1hc3Rlcl9kYXRhX2thdGVnb3JpX2JhcmFuZyI6eyJjcmVhdGUiOmZhbHNlLCJkZWxldGUiOnRydWUsInJlYWQiOmZhbHNlLCJ1cGRhdGUiOmZhbHNlfSwibWFzdGVyX2RhdGFfcGVueWVkaWEiOnsiY3JlYXRlIjpmYWxzZSwiZGVsZXRlIjpmYWxzZSwicmVhZCI6ZmFsc2UsInVwZGF0ZSI6dHJ1ZX0sIm1hc3Rlcl9kYXRhX3VzZXIiOnsiY3JlYXRlIjp0cnVlLCJkZWxldGUiOmZhbHNlLCJyZWFkIjpmYWxzZSwidXBkYXRlIjpmYWxzZX19LCJ2ZW5kb3JfaWQiOjAsImV4cCI6MTYwNTA2NjMwOCwiaXNzIjoiTk51Z3JvaG8ifQ.XEkRAXVEel7jPYkhe4MdTyjhk_ZV9AVeHGrdB1rCj3I</stringProp>
+              </elementProp>
+            </collectionProp>
+          </HeaderManager>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="vendorCreate" enabled="false">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+	&quot;query&quot;:&quot;mutation vendorCreate(\n    $vendorName: String!\n    $email: String\n    $addr: String\n    $addr2: String\n    $addr3: String\n    $phone: String\n    $photo: String\n    $ponsel: String\n    $city: String\n    $country: String\n    $fax: String\n    $postalCode: String\n    $note: String\n    $isExpedition: Int\n    $isVendor: Int\n    $picName: String\n  ) {\n    vendorCreate(\n      data: {\n        vendorName: $vendorName\n        email: $email\n        addr: $addr\n        addr2: $addr2\n        addr3: $addr3\n        phone: $phone\n        photo: $photo\n        ponsel: $ponsel\n        city: $city\n        country: $country\n        fax: $fax\n        postalCode: $postalCode\n        note: $note\n        isExpedition: $isExpedition\n        isVendor: $isVendor\n        picName: $picName\n      }\n    ) {\n      id\n      vendorName\n      createdAt\n      createdBy\n    }\n  }&quot;,&quot;variables&quot;:{&quot;addr&quot;:&quot;Jalan Cipinang&quot;,&quot;addr2&quot;:&quot;&quot;,&quot;addr3&quot;:&quot;&quot;,&quot;city&quot;:&quot;Jakarta&quot;,&quot;country&quot;:&quot;Indonesia&quot;,&quot;email&quot;:&quot;&quot;,&quot;fax&quot;:&quot;24523&quot;,&quot;isExpedition&quot;:1,&quot;isVendor&quot;:1,&quot;note&quot;:&quot;&quot;,&quot;phone&quot;:&quot;123&quot;,&quot;photo&quot;:&quot;&quot;,&quot;picName&quot;:&quot;&quot;,&quot;ponsel&quot;:&quot;0484772&quot;,&quot;postalCode&quot;:&quot;&quot;,&quot;vendorName&quot;:&quot;PT. STRES TEST&quot;}}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">wms-backend-qa.tkgslogpolri.com</stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">wms-backend</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+            <collectionProp name="HeaderManager.headers">
+              <elementProp name="" elementType="Header">
+                <stringProp name="Header.name">x-token</stringProp>
+                <stringProp name="Header.value">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Ik5vdmlhbnRvLk51Z3JvaG9AeGFwaWVucy5pZCIsInVzZXJfdHlwZSI6IlNBVEtFUiIsImZ1bGxuYW1lIjoiTm92aWFudG8gTnVncm9obyIsInVzZXJuYW1lIjoiTk51Z3JvaG8iLCJwaG90byI6IiIsImdyYWRlIjoiUG9zaXNpIiwicG9zaXRpb25zIjoiSmFiYXRhbiIsInBlcm1pc2lvbiI6eyJtYXN0ZXJfZGF0YV9ncm91cF9hY2Nlc3MiOnsiY3JlYXRlIjpmYWxzZSwiZGVsZXRlIjpmYWxzZSwicmVhZCI6dHJ1ZSwidXBkYXRlIjpmYWxzZX0sIm1hc3Rlcl9kYXRhX2thdGVnb3JpX2JhcmFuZyI6eyJjcmVhdGUiOmZhbHNlLCJkZWxldGUiOnRydWUsInJlYWQiOmZhbHNlLCJ1cGRhdGUiOmZhbHNlfSwibWFzdGVyX2RhdGFfcGVueWVkaWEiOnsiY3JlYXRlIjpmYWxzZSwiZGVsZXRlIjpmYWxzZSwicmVhZCI6ZmFsc2UsInVwZGF0ZSI6dHJ1ZX0sIm1hc3Rlcl9kYXRhX3VzZXIiOnsiY3JlYXRlIjp0cnVlLCJkZWxldGUiOmZhbHNlLCJyZWFkIjpmYWxzZSwidXBkYXRlIjpmYWxzZX19LCJ2ZW5kb3JfaWQiOjAsImV4cCI6MTYwNTA2NjMwOCwiaXNzIjoiTk51Z3JvaG8ifQ.XEkRAXVEel7jPYkhe4MdTyjhk_ZV9AVeHGrdB1rCj3I</stringProp>
+              </elementProp>
+            </collectionProp>
+          </HeaderManager>
+          <hashTree/>
+        </hashTree>
+        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
+          <objProp>
+            <name>saveConfig</name>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>false</xml>
+              <fieldNames>true</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+              <sentBytes>true</sentBytes>
+              <url>true</url>
+              <threadCounts>true</threadCounts>
+              <idleTime>true</idleTime>
+              <connectTime>true</connectTime>
+            </value>
+          </objProp>
+          <stringProp name="filename"></stringProp>
+        </ResultCollector>
+        <hashTree/>
+        <BackendListener guiclass="BackendListenerGui" testclass="BackendListener" testname="Backend Listener" enabled="true">
+          <elementProp name="arguments" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" enabled="true">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="testName" elementType="Argument">
+                <stringProp name="Argument.name">testName</stringProp>
+                <stringProp name="Argument.value">jmeter</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+              <elementProp name="instrumentationKey" elementType="Argument">
+                <stringProp name="Argument.name">instrumentationKey</stringProp>
+                <stringProp name="Argument.value">${__P(2eaac93b-9cfe-4bb8-89d0-73269ab7cce3)}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+              <elementProp name="liveMetrics" elementType="Argument">
+                <stringProp name="Argument.name">liveMetrics</stringProp>
+                <stringProp name="Argument.value">true</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+              <elementProp name="samplersList" elementType="Argument">
+                <stringProp name="Argument.name">samplersList</stringProp>
+                <stringProp name="Argument.value"></stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+              <elementProp name="useRegexForSamplerList" elementType="Argument">
+                <stringProp name="Argument.name">useRegexForSamplerList</stringProp>
+                <stringProp name="Argument.value">false</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="classname">io.github.adrianmo.jmeter.backendlistener.azure.AzureBackendClient</stringProp>
+        </BackendListener>
+        <hashTree/>
+        <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report" enabled="true">
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
+          <objProp>
+            <name>saveConfig</name>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>true</xml>
+              <fieldNames>true</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+              <sentBytes>true</sentBytes>
+              <url>true</url>
+              <threadCounts>true</threadCounts>
+              <idleTime>true</idleTime>
+              <connectTime>true</connectTime>
+            </value>
+          </objProp>
+          <stringProp name="filename"></stringProp>
+        </ResultCollector>
+        <hashTree/>
+      </hashTree>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>
